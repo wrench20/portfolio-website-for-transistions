@@ -1,0 +1,76 @@
+.scroll-to-top {
+  position: fixed;
+  right: 24px;
+  bottom: 170px;
+  z-index: 400;
+  width: 56px;
+  height: 56px;
+  padding: 0;
+  border: none;
+  border-radius: 50%;
+  background: color-mix(in srgb, var(--backgroundColor) 75%, var(--shadeMix));
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  box-shadow: 0 10px 30px var(--floatShadow), 0 0 0 1px color-mix(in srgb, var(--tintColor) 20%, transparent);
+  cursor: pointer;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transform: translateY(10px) scale(0.9);
+  transition: opacity 0.4s ease, transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.scroll-to-top-visible {
+  display: flex;
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+.scroll-to-top:hover {
+  box-shadow: 0 12px 36px var(--floatShadow), 0 0 0 1px color-mix(in srgb, var(--accentColor) 45%, transparent);
+  transform: translateY(-3px) scale(1.05);
+}
+
+/* The ring only. This used to be `.scroll-to-top svg`, which also matched the arrow
+   icon (react-icons render an <svg>): the arrow was pinned to the top-left corner and
+   rotated to point left. */
+.scroll-to-top-progress {
+  position: absolute;
+  inset: 0;
+  transform: rotate(-90deg);
+}
+
+.scroll-to-top-track {
+  fill: none;
+  stroke: color-mix(in srgb, var(--tintColor) 18%, transparent);
+  stroke-width: 2.5;
+}
+
+.scroll-to-top-ring {
+  fill: none;
+  stroke: var(--accentColor);
+  stroke-width: 2.5;
+  stroke-linecap: round;
+  /* No transition here on purpose — a CSS transition fighting a value that updates on every
+     scroll event visibly lags/stalls during continuous scrolling and only "catches up" once
+     scrolling stops. Direct, untransitioned updates track scroll position in real time. */
+}
+
+.scroll-to-top-icon {
+  position: relative;
+  z-index: 1;
+  color: var(--accentColor);
+  font-size: 20px;
+  transition: transform 0.3s ease;
+}
+
+.scroll-to-top:hover .scroll-to-top-icon {
+  transform: translateY(-2px);
+}
+
+@media only screen and (max-width: 640px) {
+  .scroll-to-top {
+    display: none !important;
+  }
+}

@@ -2,50 +2,32 @@ import {
   createContext,
   PropsWithChildren,
   useContext,
-  useEffect,
   useState,
 } from "react";
-import Loading from "../components/Loading";
+import Loader from "../components/Loader";
 
 interface LoadingType {
   isLoading: boolean;
   setIsLoading: (state: boolean) => void;
-  setLoading: (percent: number) => void;
 }
 
 export const LoadingContext = createContext<LoadingType | null>(null);
 
 export const LoadingProvider = ({ children }: PropsWithChildren) => {
-  const [isLoading, setIsLoading] = useState(() => {
-    // Skip loading on mobile
-    if (window.innerWidth <= 768) return false;
-    return true;
-  });
-  const [loading, setLoading] = useState(0);
+  // Every width gets the loader now. Phones used to skip it and fire initialFX() on a
+  // timer instead, which also meant they never got the logo-window entrance; the loader
+  // takes touch input for the dive, so there is no longer a reason to send them around it.
+  // The loader itself calls revealSite()/unlockScroll(), so nothing needs starting here.
+  const [isLoading, setIsLoading] = useState(true);
 
   const value = {
     isLoading,
     setIsLoading,
-    setLoading,
   };
-  useEffect(() => {
-    // Auto-start animations on mobile since there's no 3D model
-    if (window.innerWidth <= 768) {
-      import("../components/utils/initialFX").then((module) => {
-        if (module.initialFX) {
-          setTimeout(() => {
-            module.initialFX();
-          }, 100);
-        }
-      });
-    }
-  }, []);
-
-  useEffect(() => {}, [loading]);
 
   return (
     <LoadingContext.Provider value={value as LoadingType}>
-      {isLoading && <Loading percent={loading} />}
+      {isLoading && <Loader />}
       <main className="main-body">{children}</main>
     </LoadingContext.Provider>
   );

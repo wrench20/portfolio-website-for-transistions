@@ -1,0 +1,172 @@
+.now-playing-widget {
+  display: none;
+}
+
+@media screen and (min-width: 640px) {
+  .now-playing-widget {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    position: fixed;
+    right: 24px;
+    bottom: 100px;
+    z-index: 500;
+    max-width: 240px;
+    padding: 8px 14px 8px 8px;
+    border-radius: 999px;
+    background: color-mix(in srgb, var(--backgroundColor) 80%, var(--shadeMix));
+    border: 1px solid color-mix(in srgb, var(--tintColor) 25%, transparent);
+    box-shadow: 0 10px 30px var(--floatShadow);
+    text-decoration: none;
+    opacity: 0;
+    animation: nowPlayingIn 0.6s 1.6s ease forwards;
+    transition: border-color 0.3s ease, transform 0.3s ease;
+  }
+
+  .now-playing-widget:hover {
+    border-color: color-mix(in srgb, var(--accentColor) 55%, transparent);
+    transform: translateY(-2px);
+  }
+}
+
+@keyframes nowPlayingIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.now-playing-icon {
+  flex-shrink: 0;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  background: color-mix(in srgb, var(--tintColor) 15%, transparent);
+  color: var(--accentColor);
+  font-size: 16px;
+}
+
+.now-playing-icon-loading {
+  opacity: 0.5;
+}
+
+.now-playing-art {
+  flex-shrink: 0;
+  width: 34px;
+  height: 34px;
+  border-radius: 8px;
+  object-fit: cover;
+}
+
+.now-playing-art-muted {
+  opacity: 0.55;
+}
+
+.now-playing-text {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  overflow: hidden;
+  min-width: 0;
+}
+
+.now-playing-status {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+  color: color-mix(in srgb, var(--textColor) 60%, transparent);
+  white-space: nowrap;
+}
+
+.now-playing-title {
+  font-size: 13px;
+  font-weight: 600;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.now-playing-artist {
+  font-size: 11px;
+  opacity: 0.6;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.now-playing-eq {
+  display: inline-flex;
+  align-items: flex-end;
+  gap: 2px;
+  height: 10px;
+}
+
+.now-playing-eq i {
+  display: block;
+  width: 2px;
+  background: var(--accentColor);
+  border-radius: 1px;
+  animation: nowPlayingEq 0.9s ease-in-out infinite;
+}
+
+.now-playing-eq i:nth-child(1) {
+  height: 40%;
+  animation-delay: -0.6s;
+}
+
+.now-playing-eq i:nth-child(2) {
+  height: 100%;
+  animation-delay: -0.3s;
+}
+
+.now-playing-eq i:nth-child(3) {
+  height: 60%;
+  animation-delay: 0s;
+}
+
+@keyframes nowPlayingEq {
+
+  0%,
+  100% {
+    transform: scaleY(0.4);
+  }
+
+  50% {
+    transform: scaleY(1);
+  }
+}
+
+.now-playing-skeleton {
+  display: block;
+  height: 8px;
+  width: 120px;
+  border-radius: 4px;
+  background: color-mix(in srgb, var(--textColor) 15%, transparent);
+  animation: nowPlayingPulse 1.4s ease-in-out infinite;
+}
+
+.now-playing-skeleton-short {
+  width: 70px;
+}
+
+@keyframes nowPlayingPulse {
+
+  0%,
+  100% {
+    opacity: 0.4;
+  }
+
+  50% {
+    opacity: 0.9;
+  }
+}

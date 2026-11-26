@@ -13,9 +13,12 @@ const Career = () => {
   return (
     <div className="career-section section-container">
       <div className="career-container">
-        <h2>
+        {/* Not "the receipts" — the curtain section immediately below is a whole set
+            piece built on that word, and hitting it twice in a row flattened both. */}
+        <p className="career-kicker ff-cursive" data-sweep>how I got here, with minimal detours</p>
+        <h2 data-sweep>
           My career <span>&</span>
-          <br /> experience
+          <br /> shenanigans
         </h2>
         <div className="career-info">
           <div className="career-timeline">

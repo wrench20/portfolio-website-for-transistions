@@ -1,9 +1,4 @@
-import {
-  FaGithub,
-  FaInstagram,
-  FaLinkedinIn,
-  FaXTwitter,
-} from "react-icons/fa6";
+import { FaGithub, FaInstagram, FaWhatsapp } from "react-icons/fa6";
 import "./styles/SocialIcons.css";
 import { TbNotes } from "react-icons/tb";
 import { useEffect } from "react";
@@ -66,13 +61,8 @@ const SocialIcons = () => {
           </a>
         </span>
         <span>
-          <a href={config.contact.linkedin} target="_blank" rel="noopener noreferrer">
-            <FaLinkedinIn />
-          </a>
-        </span>
-        <span>
-          <a href={config.contact.twitter} target="_blank" rel="noopener noreferrer">
-            <FaXTwitter />
+          <a href={config.contact.whatsapp} target="_blank" rel="noopener noreferrer">
+            <FaWhatsapp />
           </a>
         </span>
         <span>
@@ -81,7 +71,13 @@ const SocialIcons = () => {
           </a>
         </span>
       </div>
-      <a className="resume-button" href="#">
+      <a
+        className="resume-button"
+        href="/Tebi-Njeik-CV.pdf"
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label="Resume (PDF, opens in a new tab)"
+      >
         <HoverLinks text="RESUME" />
         <span>
           <TbNotes />

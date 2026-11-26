@@ -1,0 +1,57 @@
+/* Floating 3D objects (Float3D.tsx). Each placement sets left/right/top, --size and
+   --tilt; everything else is shared. z-index -1 puts them behind their section's copy. */
+.float3d {
+  position: absolute;
+  z-index: -1;
+  width: var(--size, 160px);
+  pointer-events: none;
+  user-select: none;
+}
+
+.float3d img {
+  display: block;
+  width: 100%;
+  height: auto;
+  transform-origin: 50% 60%;
+  /* The shadow comes from the theme, so the objects sit on a light page as well as a
+     dark one instead of glowing a black halo onto it. */
+  filter: drop-shadow(0 28px 34px var(--floatShadow));
+  animation: float3dBob var(--bob, 9s) ease-in-out infinite alternate;
+  -webkit-user-drag: none;
+}
+
+/* A slow drift and rock, like something hanging in still air. Offset per placement with
+   --bob so neighbouring objects never move in step. */
+@keyframes float3dBob {
+  0% {
+    transform: translate3d(0, -5%, 0) rotate(calc(var(--tilt, 0deg) - 5deg));
+  }
+  100% {
+    transform: translate3d(0, 5%, 0) rotate(calc(var(--tilt, 0deg) + 5deg));
+  }
+}
+
+/* Opt-in slow turn, layered on the bob. It animates the individual `rotate` property,
+   which composes with the bob's `transform` instead of replacing it — two animations on
+   one element without either cancelling the other. */
+.float3d-spin img {
+  animation:
+    float3dBob var(--bob, 9s) ease-in-out infinite alternate,
+    float3dSpin var(--spin, 32s) linear infinite;
+}
+
+@keyframes float3dSpin {
+  from {
+    rotate: 0deg;
+  }
+  to {
+    rotate: 360deg;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .float3d img {
+    animation: none;
+    transform: rotate(var(--tilt, 0deg));
+  }
+}

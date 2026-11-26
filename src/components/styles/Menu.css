@@ -1,0 +1,397 @@
+/* Scoped under .nav / .menu-button. Next's production build merges and chunks
+   stylesheets, so import order in dev is not a promise it keeps. */
+
+.nav {
+  --menu-padding: 2em;
+  /* One step below .header (9999) so the Close button stays clickable above the
+     overlay — the same relationship the reference sets up with 100/110. */
+  z-index: 9998;
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100vh;
+  height: 100svh;
+  display: none;
+}
+
+.nav-overlay {
+  z-index: 0;
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  cursor: pointer;
+  background-color: color-mix(in srgb, #06070a 62%, transparent);
+}
+
+.menu {
+  position: relative;
+  z-index: 1;
+  /* Without this, `height: 100%` plus the vertical padding makes the panel taller than
+     the viewport by exactly that padding, pushing the socials below the fold. There is
+     no global border-box reset in this project to rely on. */
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 4em;
+  width: min(35em, 100%);
+  height: 100%;
+  margin-left: auto;
+  padding-top: calc(3 * var(--menu-padding));
+  padding-bottom: var(--menu-padding);
+  overflow: auto;
+  overscroll-behavior: contain;
+}
+
+.menu-bg {
+  z-index: 0;
+  position: absolute;
+  inset: 0;
+}
+
+/* Three layers, wiping in one after another. The stagger between them *is* the effect —
+   a single panel slides, three panels feel like a curtain falling. */
+.bg-panel {
+  z-index: 0;
+  position: absolute;
+  inset: 0;
+  border-top-left-radius: 1.25em;
+  border-bottom-left-radius: 1.25em;
+  background-color: color-mix(in srgb, var(--textColor) 92%, white);
+}
+
+.bg-panel.first {
+  background-color: var(--accentColor);
+}
+
+.bg-panel.second {
+  background-color: var(--textColor);
+}
+
+.menu-inner {
+  z-index: 1;
+  position: relative;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 4em;
+  width: 100%;
+  /* min-height, not height: on a short viewport the five headings plus the details row
+     exceed the panel, and a fixed height would clip them instead of letting .menu scroll. */
+  min-height: 100%;
+}
+
+.menu-list {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  margin-top: 9em;
+}
+
+.menu-list-item {
+  position: relative;
+  overflow: hidden;
+}
+
+.menu-link {
+  position: relative;
+  display: flex;
+  gap: 0.75em;
+  width: 100%;
+  padding: 0.75em var(--menu-padding);
+  text-decoration: none;
+}
+
+.menu-link:hover {
+  color: inherit;
+}
+
+.menu-link-heading {
+  z-index: 1;
+  position: relative;
+  font-family: var(--font-sora), sans-serif;
+  font-size: clamp(2.5rem, 9vw, 5.625rem);
+  font-weight: 600;
+  line-height: 0.75;
+  letter-spacing: -0.02em;
+  text-transform: uppercase;
+  color: var(--backgroundColor);
+  /* The duplicate that slides up into place on hover. It sits one em below and is only
+     ever seen against .menu-link-bg, so it contrasts with *that*, not with the panel. */
+  text-shadow: 0 1em 0 var(--textColor);
+  transition: transform 0.55s cubic-bezier(0.65, 0.05, 0, 1);
+}
+
+.eyebrow {
+  z-index: 1;
+  position: relative;
+  font-family: var(--font-sora), sans-serif;
+  font-size: 0.8rem;
+  font-weight: 500;
+  letter-spacing: 2px;
+  color: var(--accentColor);
+}
+
+.menu-link-bg {
+  z-index: 0;
+  position: absolute;
+  inset: 0;
+  background-color: var(--backgroundColor);
+  transform: scale3d(1, 0, 1);
+  transform-origin: 50% 100%;
+  transition: transform 0.55s cubic-bezier(0.65, 0.05, 0, 1);
+}
+
+/* Hover only where there is a pointer — on touch these would latch on tap and stay. */
+@media (hover: hover) {
+  .menu-link:hover .menu-link-heading {
+    transform: translate(0, -1em);
+    transition-delay: 0.1s;
+  }
+
+  .menu-link:hover .menu-link-bg {
+    transform: scale3d(1, 1, 1);
+  }
+
+  .text-link::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: -2px;
+    width: 100%;
+    height: 1px;
+    background: var(--backgroundColor);
+    transform: scale(0, 1);
+    transform-origin: right center;
+    transition: transform 0.4s cubic-bezier(0.65, 0.05, 0, 1);
+  }
+
+  .text-link:hover::after {
+    transform: scale(1, 1);
+    transform-origin: left center;
+  }
+}
+
+/* Keyboard users get the same emphasis the pointer gets. */
+.menu-link:focus-visible .menu-link-heading {
+  transform: translate(0, -1em);
+}
+
+.menu-link:focus-visible .menu-link-bg {
+  transform: scale3d(1, 1, 1);
+}
+
+.menu-details {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 1rem;
+  padding-left: var(--menu-padding);
+  padding-right: var(--menu-padding);
+}
+
+.menu-details-label {
+  margin: 0;
+  font-size: 0.8rem;
+  font-weight: 400;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: color-mix(in srgb, var(--backgroundColor) 55%, transparent);
+}
+
+.socials-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.25em;
+}
+
+.socials-row .text-link {
+  position: relative;
+  font-size: 1rem;
+  font-weight: 400;
+  color: var(--backgroundColor);
+  text-decoration: none;
+}
+
+.socials-row .text-link:hover {
+  color: var(--backgroundColor);
+}
+
+/* ---- Menu button (lives in .header) --------------------------------------- */
+
+.menu-button {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 0.625em;
+  margin: -1em;
+  padding: 1em;
+  border: none;
+  background-color: transparent;
+  color: var(--textColor);
+  font-family: var(--font-sora), sans-serif;
+  cursor: pointer;
+}
+
+.menu-button-text {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  justify-content: flex-start;
+  height: 1.125em;
+  overflow: hidden;
+}
+
+.menu-button-text p {
+  margin: 0;
+  font-size: 0.9rem;
+  font-weight: 500;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  line-height: 1.125em;
+}
+
+/* Three-bar spin toggle. Mechanism and timing are the supplied reference's — the two
+   outer bars travel to the centre first, then rotate into the X (and on close, rotate
+   back before travelling out), which is what the swapped transition-delays encode.
+   Driven off the button's own aria-expanded rather than a hidden checkbox, so the
+   accessible state and the visual state are the same fact. Sizes are variables so the
+   three relationships stay intact at the smaller scale a header needs. */
+.menu-toggle {
+  --bar-h: 3px;
+  --bar-gap: 7px;
+  position: relative;
+  display: block;
+  width: 30px;
+  height: calc(var(--bar-h) * 3 + var(--bar-gap) * 2);
+}
+
+.bar {
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: var(--bar-h);
+  border-radius: calc(var(--bar-h) / 2);
+  /* currentColor so the open-state contrast flip below carries to the bars. */
+  background: currentColor;
+  opacity: 1;
+  transition: none 0.35s cubic-bezier(0.5, -0.35, 0.35, 1.5) 0s;
+}
+
+.bar--top {
+  bottom: calc(50% + var(--bar-gap) + var(--bar-h) / 2);
+  transition-property: bottom, transform;
+  transition-delay: 0.35s, 0s;
+}
+
+.bar--middle {
+  top: calc(50% - var(--bar-h) / 2);
+  transition-property: opacity;
+  transition-delay: 0.35s;
+}
+
+.bar--bottom {
+  top: calc(50% + var(--bar-gap) + var(--bar-h) / 2);
+  transition-property: top, transform;
+  transition-delay: 0.35s, 0s;
+}
+
+.menu-button[aria-expanded="true"] .bar--top {
+  bottom: calc(50% - var(--bar-h) / 2);
+  transform: rotate(135deg);
+  transition-delay: 0s, 0.35s;
+}
+
+.menu-button[aria-expanded="true"] .bar--middle {
+  opacity: 0;
+  transition-duration: 0s;
+  transition-delay: 0.35s;
+}
+
+.menu-button[aria-expanded="true"] .bar--bottom {
+  top: calc(50% - var(--bar-h) / 2);
+  transform: rotate(225deg);
+  transition-delay: 0s, 0.35s;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .bar {
+    transition-duration: 0s;
+    transition-delay: 0s;
+  }
+}
+
+.menu-button:focus-visible {
+  /* In the header's own ink: the header blends with difference (Navbar.css), which
+     would turn an accent outline into its complement. */
+  outline: 2px solid currentColor;
+  outline-offset: 4px;
+}
+
+/* The button sits at the header's right edge, which the open panel always covers — at
+   every width, since the panel is 35em right-aligned on desktop and full-width on a
+   phone. Light-on-cream would be invisible, so it flips to the dark ink. */
+.menu-button[aria-expanded="true"] {
+  color: var(--backgroundColor);
+}
+
+/* The logo and the centred email are a different case: whether the panel covers them
+   depends on the viewport (at ~1024px the 35em panel reaches past the header's centre
+   and swallows the email, at 1440px it does not, and on a phone the full-width panel
+   covers both). Rather than flip their colour per breakpoint and get it wrong at some
+   width, they step aside while the menu is open. */
+html.menu-open .navbar-title,
+html.menu-open .navbar-connect {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.navbar-title,
+.navbar-connect {
+  transition: opacity 0.35s ease;
+}
+
+/* The lock has to land on <html>, not just <body>: `document.scrollingElement` is HTML
+   here, and body already carries `overflow: hidden` on desktop — so locking body alone
+   changes nothing and the page scrolls on behind the panel. The !important is for the
+   phone block in index.css, which sets `overflow: auto !important` on both. */
+html.menu-open,
+body.menu-open {
+  overflow: hidden !important;
+}
+
+@media only screen and (max-width: 767px) {
+  .nav {
+    --menu-padding: 1.25em;
+  }
+
+  .menu {
+    width: 100%;
+    padding-top: calc(5 * var(--menu-padding));
+  }
+
+  .bg-panel {
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+  }
+
+  .menu-link {
+    padding-top: 0.55em;
+    padding-bottom: 0.55em;
+  }
+
+  .socials-row {
+    gap: 0.9em;
+  }
+
+  .socials-row .text-link {
+    font-size: 0.9rem;
+  }
+}

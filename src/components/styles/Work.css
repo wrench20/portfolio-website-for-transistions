@@ -38,7 +38,7 @@
   flex-direction: column;
   width: 600px;
   box-sizing: border-box;
-  border-right: 1px solid #363636;
+  border-right: 1px solid rgb(var(--ink-rgb) / 0.16);
   flex-shrink: 0;
   gap: 50px;
   justify-content: start;
@@ -53,7 +53,7 @@
   content: "";
   width: calc(50000vw);
   height: 1px;
-  background-color: #363636;
+  background-color: rgb(var(--ink-rgb) / 0.16);
   position: absolute;
   left: 50%;
   top: 0;
@@ -65,32 +65,31 @@
 }
 
 .work-title {
-  justify-content: space-between;
   display: flex;
   width: 100%;
   margin-bottom: 20px;
 }
 
 .work-title>div {
-  text-align: right;
+  text-align: left;
 }
 
-.work-title h3 {
-  font-size: 50px;
-  line-height: 50px;
-  margin: 0;
+.work-title h4 {
+  font-size: 32px;
   font-weight: 600;
+  margin: 0;
 }
 
-.work-info h4 {
-  font-size: 26px;
+.work-info>h4 {
+  font-size: 13px;
   font-weight: 500;
   margin: 0;
+  color: rgb(var(--ink-rgb) / 0.62);
 }
 
 .work-info p {
   font-weight: 200;
-  color: #adacac;
+  color: rgb(var(--ink-rgb) / 0.62);
   margin: 0;
   margin-top: 3px;
 }
@@ -121,8 +120,8 @@
   justify-content: center;
   align-items: center;
   font-size: 25px;
-  box-shadow: 0px 0px 10px 0px rgba(255, 255, 255, 0.5),
-    inset 0px 0px 10px 0px #393939;
+  box-shadow: 0px 0px 10px 0px rgb(var(--ink-rgb) / 0.5),
+    inset 0px 0px 10px 0px rgb(var(--ink-rgb) / 0.18);
   transition: 0.3s;
   opacity: 0;
 }
@@ -141,7 +140,7 @@
   height: 100%;
   top: 0;
   left: 0;
-  background-color: #000;
+  background-color: var(--backgroundColor);
   object-fit: cover;
 }
 
@@ -168,16 +167,16 @@
 }
 
 @media only screen and (max-width: 1400px) {
-  .work-title h3 {
-    font-size: 35px;
+  .work-title h4 {
+    font-size: 22px;
   }
 
   .work-info p {
     font-size: 13px;
   }
 
-  .work-info h4 {
-    font-size: 15px;
+  .work-info>h4 {
+    font-size: 12px;
   }
 
   .work-box {
@@ -244,55 +243,11 @@
   }
 }
 
-/* See All Works CTA Box */
-.work-box-cta {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-right: none;
-}
-
-.see-all-works {
-  text-align: center;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 15px;
-}
-
-.see-all-works h3 {
-  font-size: 32px;
-  font-weight: 500;
-  color: #fff;
-}
-
-.see-all-works p {
-  font-size: 16px;
-  color: rgba(255, 255, 255, 0.6);
-  max-width: 250px;
-}
-
-.see-all-btn {
-  display: inline-block;
-  padding: 15px 35px;
-  font-size: 16px;
-  font-weight: 500;
-  color: #000;
-  background: var(--accentColor);
-  border-radius: 30px;
-  text-decoration: none;
-  transition: all 0.3s ease;
-  margin-top: 10px;
-}
-
-.see-all-btn:hover {
-  transform: scale(1.05);
-  box-shadow: 0 10px 30px rgba(194, 164, 255, 0.4);
-}
-
-/* Mobile: Stack work items vertically when GSAP pinning is disabled */
-@media only screen and (max-width: 768px) {
+/* Mobile: stack work items vertically when GSAP pinning is disabled.
+   767, not 768: the pin now activates at min-width 768 (MQ.tabletUp), and at exactly
+   768px the two used to disagree — cards stacked by CSS while GSAP translated them
+   sideways. */
+@media only screen and (max-width: 767px) {
   .work-section {
     height: auto;
     min-height: auto;
@@ -310,7 +265,7 @@
     max-width: 100%;
     padding: 30px 15px;
     border-right: none;
-    border-bottom: 1px solid #363636;
+    border-bottom: 1px solid rgb(var(--ink-rgb) / 0.16);
     gap: 20px;
   }
 
@@ -324,29 +279,34 @@
     margin-bottom: 20px;
   }
 
-  .work-title h3 {
-    font-size: 30px;
-    line-height: 30px;
+  .work-title h4 {
+    font-size: 20px;
   }
 
-  .work-info h4 {
-    font-size: 18px;
+  .work-info>h4 {
+    font-size: 12px;
   }
 
   .work-image img {
     max-height: 200px;
   }
-
-  .work-box-cta {
-    padding: 40px 20px;
-    border-bottom: none;
+}
+/* The "open project" affordance is hover-only, so on touch it never appeared at all.
+   The link itself always worked — the whole image is wrapped in it — but there was
+   nothing on screen to say so. */
+@media (pointer: coarse) {
+  .work-link {
+    opacity: 1;
   }
+}
 
-  .see-all-works h3 {
-    font-size: 24px;
-  }
-
-  .see-all-works p {
-    font-size: 14px;
-  }
+/* The problem-and-features line under each project's title. A little more room above and
+   below than a tag line, and full width so a sentence doesn't wrap into a narrow column. */
+.work-info > p.work-desc {
+  width: 100%;
+  margin: 14px 0 18px;
+  font-size: 15px;
+  line-height: 1.5;
+  font-weight: 300;
+  color: rgb(var(--ink-rgb) / 0.82);
 }

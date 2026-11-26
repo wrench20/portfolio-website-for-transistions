@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { MdArrowOutward } from "react-icons/md";
-import { Link } from "react-router-dom";
+import Link from "next/link";
 
 interface Props {
   image: string;
@@ -17,7 +17,7 @@ const WorkImage = (props: Props) => {
   const handleMouseEnter = async () => {
     if (props.video) {
       setIsVideo(true);
-      const response = await fetch(`src/assets/${props.video}`);
+      const response = await fetch(`/${props.video}`);
       const blob = await response.blob();
       const blobUrl = URL.createObjectURL(blob);
       setVideo(blobUrl);
@@ -46,7 +46,7 @@ const WorkImage = (props: Props) => {
         ) : (
           <Link
             className="work-image-in"
-            to={props.link}
+            href={props.link ?? "/"}
             onMouseEnter={handleMouseEnter}
             onMouseLeave={() => setIsVideo(false)}
             data-cursor={"disable"}

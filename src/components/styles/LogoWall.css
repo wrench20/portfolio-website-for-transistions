@@ -1,0 +1,11 @@
+/* The SVG wall with the monogram cut out of it (LogoWall.tsx). Its user units are CSS
+   pixels, so it has to be exactly the size of the box it fills. */
+.logo-wall {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+  pointer-events: none;
+  overflow: hidden;
+}

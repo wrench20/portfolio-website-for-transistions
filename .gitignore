@@ -8,8 +8,9 @@ pnpm-debug.log*
 lerna-debug.log*
 
 node_modules
-dist
-dist-ssr
+.next
+out
+next-env.d.ts
 *.local
 
 # Editor directories and files
@@ -26,4 +27,5 @@ dist-ssr
 
 backup/
 .env
-redoxchess-engine/
+*.tsbuildinfo
+.claude/settings.local.json

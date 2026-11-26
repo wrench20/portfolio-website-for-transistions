@@ -1,101 +1,124 @@
+/* About: text only — a statement set large, with the facts as a ruled list beside it. */
+
 .about-section {
+  position: relative;
   display: flex;
   align-items: center;
-  justify-content: left;
-  place-items: center;
-  position: relative;
-  opacity: 1;
-  height: auto;
+  justify-content: center;
   width: var(--cWidth);
+  max-width: var(--cMaxWidth);
   margin: auto;
+  padding: 120px 0;
+  box-sizing: border-box;
 }
+
 .about-me {
-  padding: 40px 0px;
-  padding-bottom: 0;
+  position: relative;
+  z-index: 5;
   width: 100%;
-  max-width: calc(100% - 15px);
+  max-width: 1240px;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 56px;
 }
+
 .about-me h3 {
-  font-size: 18px;
-  text-transform: uppercase;
-  letter-spacing: 4px;
+  margin: 0 0 22px;
+  font-size: 14px;
   font-weight: 400;
+  letter-spacing: 6px;
+  text-transform: uppercase;
   color: var(--accentColor);
-  margin-bottom: 15px;
 }
 
+/* The statement. Set like a pull quote rather than body copy — this section is now
+   carried by its type, so the type has to carry it. */
 .about-me p {
-  font-size: 20px;
+  margin: 0;
+  /* Sized for this copy's length (~370 characters): any larger and it becomes a dozen
+     lines of heavy type. */
+  max-width: 34ch;
+  font-size: clamp(22px, 2.2vw, 38px);
   font-weight: 600;
-  line-height: 26px;
-  letter-spacing: 0.5px;
-  word-spacing: 2px;
+  line-height: 1.22;
+  letter-spacing: -0.01em;
+  color: var(--textColor);
 }
 
-.about-me .split-word {
-  display: inline-block;
-  margin-right: 0.3em;
+/* ---- Facts ------------------------------------------------------------------------ */
+
+.about-facts {
+  margin: 0;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  column-gap: 32px;
 }
 
-.about-me .split-line {
-  display: block;
+.about-fact {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 20px 0;
+  border-top: 1px dashed rgb(var(--ink-rgb) / 0.22);
 }
 
-@media only screen and (min-width: 600px) {
-  .about-section {
-    justify-content: center;
-  }
-  .about-me {
-    width: 500px;
-  }
-  .about-me h3 {
-    font-size: 22px;
-    letter-spacing: 6px;
-  }
-  .about-me p {
-    font-size: 28px;
-    line-height: 32px;
-  }
+.about-fact dt {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--accentColor);
 }
-@media only screen and (min-width: 768px) {
-  .about-me {
-    width: 500px;
-    max-width: calc(100% - 70px);
-    transform: translateY(0%);
-  }
-  .about-me h3 {
-    font-size: 25px;
-    letter-spacing: 7px;
-  }
-  .about-me p {
-    font-size: 33px;
-    line-height: 36px;
-  }
-  .about-section {
-    opacity: 1;
-  }
+
+.about-fact dd {
+  margin: 0;
+  font-family: var(--font-sora), sans-serif;
+  font-size: clamp(20px, 1.8vw, 30px);
+  font-weight: 600;
+  line-height: 1.15;
+  color: var(--textColor);
 }
+
+/* ---- Desktop: statement left, facts in a single ruled column on the right ----------- */
+
 @media only screen and (min-width: 1025px) {
   .about-section {
-    width: var(--cWidth);
-    justify-content: right;
-    max-width: 1920px;
-    height: var(--vh);
-    padding: 0px;
-    opacity: 1;
+    min-height: var(--vh);
+    padding: 0;
+    /* Clearance for this section's own parallax: GsapScroll slides it down 12% of its
+       height as you scroll past, and without room it lands on top of What I Do. */
+    margin-bottom: 13vh;
   }
+
   .about-me {
-    padding: 0px;
-    width: 50%;
+    grid-template-columns: minmax(0, 1.75fr) minmax(220px, 0.75fr);
+    gap: clamp(48px, 7vw, 140px);
+    align-items: center;
   }
-  .about-me p {
-    font-size: 1.9vw;
-    line-height: 2.3vw;
+
+  .about-facts {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  /* Closes the list off at the bottom as well, so the rules read as a set. */
+  .about-fact:last-child {
+    border-bottom: 1px dashed rgb(var(--ink-rgb) / 0.22);
   }
 }
-@media only screen and (min-width: 1950px) {
-  .about-me p {
-    font-size: 2.5rem;
-    line-height: 2.7rem;
+
+/* ---- Phone ------------------------------------------------------------------------ */
+
+@media only screen and (max-width: 767px) {
+  .about-section {
+    padding: 80px 0;
+  }
+
+  .about-me {
+    gap: 36px;
+  }
+
+  .about-me h3 {
+    font-size: 12px;
+    letter-spacing: 4px;
   }
 }

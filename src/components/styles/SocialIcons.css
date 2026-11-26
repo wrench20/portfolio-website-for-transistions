@@ -6,6 +6,16 @@
   z-index: 99;
   left: 50%;
   transform: translateX(-50%);
+  opacity: 0;
+  /* Fixed chrome passes over both materials — dark sections, light ones, and the
+     closing logo wall, which is always the opposite of the page. Pale ink with a
+     difference blend inverts against whatever is underneath: pale over raven black,
+     near-black over powder blue. Pinned locally so it behaves the same in both themes. */
+  --textColor: #dbe7f1;
+  --ink-rgb: 219 231 241;
+  --backgroundColor: #0e0f13;
+  color: var(--textColor);
+  mix-blend-mode: difference;
 }
 .social-icons {
   position: absolute;
@@ -17,13 +27,13 @@
   z-index: 999;
   padding: 10px;
 }
-.social-icons:hover {
-  transition: 0.3s;
-  color: var(--backgroundColor);
-}
+/* No colour change on hover. These used to switch to the page's background colour, which
+   under the strip's difference blend is a near no-op — the icons disappeared. Keeping the
+   ink means the icon inverts against the cursor's pale hover pill and reads dark on it.
+   The lift is the hover cue; `scale`, not `transform`, because transform centres the icon
+   and the magnetic effect moves it. */
 .social-icons a:hover {
-  color: var(--backgroundColor);
-  /* transform: scale(1.2); */
+  scale: 1.18;
 }
 .social-icons span {
   width: 50px;
@@ -41,7 +51,7 @@
   display: flex;
   font-size: 23px;
   will-change: left, top;
-  transition: transform 0.3s ease-out;
+  transition: transform 0.3s ease-out, scale 0.3s ease-out;
 }
 .resume-button {
   position: absolute;
@@ -56,30 +66,21 @@
   font-size: 15px;
   line-height: 15px;
   font-weight: 600;
-  color: #5e5e5e;
+  color: rgb(var(--ink-rgb) / 0.45);
   cursor: pointer;
   transition: 0.5s;
   transform-origin: left bottom;
   transform: translateX(100%) rotateZ(-90deg);
 }
 .resume-button:hover {
-  color: #fff;
+  color: var(--textColor);
 }
 div.resume-button span {
-  color: #fff;
+  color: var(--textColor);
   font-size: 17px;
   margin-top: -1px;
   display: flex;
   align-items: center;
-}
-.check-line {
-  position: fixed;
-  top: 655px;
-  left: 0;
-  height: 1px;
-  background-color: #ffffff;
-  width: 100%;
-  z-index: 99999;
 }
 @media only screen and (min-width: 900px) {
   .social-icons {

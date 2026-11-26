@@ -1,0 +1,393 @@
+/* Skill tree (SkillTree.tsx). The drawn tree above 900px, vertical boughs at or below.
+   Scoped under .skilltree-section throughout. */
+
+.skilltree-section {
+  /* Wood and twigs: a quiet version of the ink, so 44 leaves are what you read. */
+  --st-wood: color-mix(in srgb, var(--textColor) 30%, transparent);
+  --st-twig: color-mix(in srgb, var(--textColor) 26%, transparent);
+  /* Leaves are light discs in both themes: tool logos are drawn for light backgrounds
+     and several (Next.js, GitHub, Vercel…) are black, which vanished on a dark disc. */
+  --st-leaf: #eef4f9;
+
+  position: relative;
+  margin: 0 auto;
+  padding: 140px 0 120px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: clamp(24px, 3vw, 40px);
+}
+
+.skilltree-head {
+  text-align: center;
+  max-width: 720px;
+}
+
+.skilltree-eyebrow {
+  margin: 0 0 6px;
+  font-size: clamp(20px, 2vw, 30px);
+  color: var(--accentColor);
+  opacity: 0.85;
+}
+
+.skilltree-head h2 {
+  margin: 0;
+  font-size: clamp(40px, 5.5vw, 80px);
+  font-weight: 400;
+  text-transform: uppercase;
+  line-height: 1;
+}
+
+.skilltree-head h2 span {
+  color: var(--accentColor);
+}
+
+.skilltree-sub {
+  margin: 14px 0 0;
+  font-size: clamp(13px, 1.1vw, 16px);
+  font-weight: 200;
+  opacity: 0.6;
+}
+
+/* ---- The drawn tree ----------------------------------------------------------- */
+
+/* Width is capped by the viewport height so the heading and the whole tree fit in one
+   screen: 230px covers the heading block, the gap above the tree and a little air.
+   The viewBox is 4:3, so height = width × 3/4 and the cap is (100svh − 230px) × 4/3. */
+.st-svg {
+  display: block;
+  width: min(100%, calc((100svh - 230px) * 4 / 3));
+  margin-inline: auto;
+  height: auto;
+  overflow: visible;
+}
+
+/* The reveal mask: plain centreline strokes, white = shown. Wide enough to cover the
+   thickest part of the wood they reveal. */
+.st-grow-trunk,
+.st-grow-limb,
+.st-grow-spine {
+  fill: none;
+  stroke: #fff;
+  stroke-linecap: round;
+}
+
+.st-grow-trunk {
+  stroke-width: 150;
+}
+
+.st-grow-limb {
+  stroke-width: 44;
+}
+
+.st-grow-spine {
+  stroke-width: 34;
+}
+
+.st-trunk,
+.st-limb {
+  fill: var(--st-wood);
+  transition: fill 0.35s ease, opacity 0.35s ease;
+}
+
+.st-twig {
+  fill: none;
+  stroke: var(--st-twig);
+  stroke-width: 2.2;
+  stroke-linecap: round;
+  transition: stroke 0.35s ease;
+}
+
+/* Crowns sway on a slow breeze once grown, each about the point where it meets its
+   limb, and each on its own period so they never move in step. */
+.st-crown {
+  transform-box: view-box;
+  transition: opacity 0.35s ease;
+}
+
+.st-svg.is-grown .st-crown {
+  animation: stSway 7s ease-in-out infinite alternate;
+}
+
+.st-crown[data-branch="interface"] { animation-duration: 8s; }
+.st-crown[data-branch="toolchain"] { animation-duration: 7.4s; animation-delay: -2s; }
+.st-crown[data-branch="core"] { animation-duration: 9s; animation-delay: -4s; }
+.st-crown[data-branch="data"] { animation-duration: 6.6s; animation-delay: -1s; }
+.st-crown[data-branch="integration"] { animation-duration: 7.8s; animation-delay: -3s; }
+
+@keyframes stSway {
+  from { transform: rotate(-1.2deg); }
+  to { transform: rotate(1.2deg); }
+}
+
+/* ---- Leaves ---- */
+
+.st-leaf {
+  cursor: pointer;
+  outline: none;
+}
+
+.st-leaf-in {
+  transform-box: fill-box;
+  transform-origin: center;
+  transition: transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.st-leaf-in circle {
+  fill: var(--st-leaf);
+  stroke: color-mix(in srgb, var(--tintColor) 60%, transparent);
+  stroke-width: 1.5;
+  transition: stroke 0.3s ease;
+}
+
+.st-leaf-name {
+  fill: var(--textColor);
+  font-family: var(--font-sora), sans-serif;
+  font-size: 14px;
+  text-anchor: middle;
+  /* A halo in the page colour, so a twig passing behind a name never cuts through it. */
+  paint-order: stroke;
+  stroke: var(--backgroundColor);
+  stroke-width: 5px;
+  stroke-linejoin: round;
+}
+
+.st-leaf:hover .st-leaf-in,
+.st-leaf:focus-visible .st-leaf-in {
+  transform: scale(1.18);
+}
+
+.st-leaf:hover .st-leaf-in circle,
+.st-leaf:focus-visible .st-leaf-in circle {
+  stroke: var(--accentColor);
+  stroke-width: 2.5;
+}
+
+.st-leaf:focus-visible .st-leaf-name {
+  text-decoration: underline;
+}
+
+/* ---- Branch names ---- */
+
+.st-branch-label {
+  cursor: default;
+  outline: none;
+}
+
+.st-branch-label text {
+  fill: var(--textColor);
+  font-family: var(--font-sora), sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  paint-order: stroke;
+  stroke: var(--backgroundColor);
+  stroke-width: 6px;
+  stroke-linejoin: round;
+  transition: fill 0.35s ease, opacity 0.35s ease;
+}
+
+.st-branch-count {
+  fill: var(--accentColor);
+  font-weight: 400;
+  font-size: 12px;
+}
+
+/* ---- One branch in focus: its wood and name take the accent, the rest step back ---- */
+
+.st-limb.is-hot,
+.st-crown.is-hot .st-limb {
+  fill: var(--accentColor);
+}
+
+.st-crown.is-hot .st-twig {
+  stroke: color-mix(in srgb, var(--accentColor) 70%, transparent);
+}
+
+.st-branch-label.is-hot text {
+  fill: var(--accentColor);
+}
+
+.st-crown.is-dim,
+.st-limb.is-dim,
+.st-branch-label.is-dim text {
+  opacity: 0.28;
+}
+
+/* ---- Boughs (narrow screens) ---------------------------------------------------------
+   The trunk runs down the left; each branch leaves it as a short limb to its name, then
+   carries its skills on alternating sides of a branch line, each on its own twig. */
+
+.st-list {
+  display: none;
+  position: relative;
+  width: 100%;
+  padding-left: 26px;
+  box-sizing: border-box;
+}
+
+.st-list::before {
+  content: "";
+  position: absolute;
+  left: 8px;
+  top: 6px;
+  bottom: 0;
+  width: 4px;
+  border-radius: 2px;
+  background: var(--st-wood);
+}
+
+.st-bough {
+  position: relative;
+  padding-bottom: 30px;
+}
+
+.st-bough-label {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 0 0 14px;
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+}
+
+/* The limb from the trunk to the name. */
+.st-bough-label::before {
+  content: "";
+  position: absolute;
+  left: -18px;
+  top: 50%;
+  width: 12px;
+  height: 3px;
+  border-radius: 2px;
+  background: var(--st-wood);
+}
+
+.st-bough-label span {
+  font-size: 12px;
+  font-weight: 400;
+  letter-spacing: 0;
+  color: var(--accentColor);
+}
+
+.st-bough-leaves {
+  position: relative;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px 28px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+/* The branch line the leaves hang off, down the middle. */
+.st-bough-leaves::before {
+  content: "";
+  position: absolute;
+  left: calc(50% - 1.5px);
+  top: -10px;
+  bottom: 14px;
+  width: 3px;
+  border-radius: 2px;
+  background: var(--st-wood);
+}
+
+.st-bough-leaf {
+  position: relative;
+}
+
+/* Each leaf's twig to the branch line, left column reaching right, right column left. */
+.st-bough-leaf::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  width: 14px;
+  height: 2px;
+  background: var(--st-twig);
+}
+
+.st-bough-leaf:nth-child(odd)::after {
+  right: -14px;
+}
+
+.st-bough-leaf:nth-child(even)::after {
+  left: -14px;
+}
+
+.st-bough-leaf a {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 5px 10px 5px 5px;
+  border: 1px solid color-mix(in srgb, var(--tintColor) 25%, transparent);
+  border-radius: 40px;
+  background: color-mix(in srgb, var(--tintColor) 6%, var(--backgroundColor));
+  font-size: 13px;
+  color: var(--textColor);
+  transition: border-color 0.3s ease;
+}
+
+.st-bough-leaf a:hover,
+.st-bough-leaf a:focus-visible {
+  border-color: var(--accentColor);
+}
+
+.st-bough-icon {
+  flex: 0 0 auto;
+  display: grid;
+  place-items: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: var(--st-leaf);
+}
+
+.st-bough-icon img {
+  width: 18px;
+  height: 18px;
+}
+
+@media only screen and (max-width: 900px) {
+  .st-svg {
+    display: none;
+  }
+
+  .st-list {
+    display: block;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .st-svg.is-grown .st-crown {
+    animation: none;
+  }
+}
+
+/* ---- Width: the same column as every other section (see App.css .section-container) */
+.skilltree-section {
+  width: 1300px;
+  max-width: calc(100% - 160px);
+}
+
+@media only screen and (max-width: 1600px) {
+  .skilltree-section {
+    width: 1200px;
+  }
+}
+
+@media only screen and (max-width: 1400px) {
+  .skilltree-section {
+    width: 900px;
+  }
+}
+
+@media only screen and (max-width: 900px) {
+  .skilltree-section {
+    width: 500px;
+    max-width: var(--cWidth);
+  }
+}

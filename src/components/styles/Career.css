@@ -8,8 +8,19 @@
   opacity: 1;
   height: auto;
   margin: auto;
-  margin-bottom: 250px;
+  /* Clearance for Career's own parallax drift. This section used to carry a 250px bottom
+     margin, which I removed when the curtain was added on the reasoning that the curtain
+     supplied the gap — but the gap was never for spacing, it was the room this section
+     needs to slide down into. Without it Career overlapped the curtain by 239px. */
+  margin-bottom: 130px;
   padding: 120px 0px;
+}
+
+.career-kicker {
+  font-size: 24px;
+  color: var(--accentColor);
+  text-align: center;
+  margin: 0;
 }
 
 .career-section h2 {
@@ -17,7 +28,7 @@
   line-height: 70px;
   font-weight: 400;
   text-align: center;
-  background: linear-gradient(0deg, #7f40ff, #ffffff);
+  background: linear-gradient(0deg, var(--accentColor), var(--textColor));
   background-clip: text;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -27,7 +38,7 @@
 }
 
 .career-section h2>span {
-  font-family: "Geist", sans-serif;
+  font-family: var(--font-sora), sans-serif;
   font-weight: 300;
 }
 
@@ -91,7 +102,7 @@
   width: 3px;
   height: 100%;
   background-image: linear-gradient(to top,
-      #aa42ff 20%,
+      var(--accentColor) 20%,
       var(--accentColor) 50%,
       transparent 95%);
   max-height: 0%;
@@ -102,12 +113,12 @@
   bottom: 0;
   left: 50%;
   transform: translate(-50%, 50%);
-  background-color: #aa42ff;
+  background-color: var(--accentColor);
   width: 10px;
   height: 10px;
   border-radius: 50px;
-  box-shadow: 0px 0px 5px 2px #d29bff, 0px 0px 15px 8px #d097ff,
-    0px 0px 110px 20px #f2c0ff;
+  box-shadow: 0px 0px 5px 2px var(--accentGlow), 0px 0px 15px 8px color-mix(in srgb, var(--accentGlow) 70%, var(--accentColor)),
+    0px 0px 110px 20px color-mix(in srgb, var(--accentGlow) 45%, transparent);
   animation: timeline 0.8s linear infinite forwards;
 }
 
@@ -118,7 +129,7 @@
   50%,
   70%,
   90% {
-    box-shadow: 0px 0px 5px 2px #d29bff;
+    box-shadow: 0px 0px 5px 2px var(--accentGlow);
   }
 
   10%,
@@ -127,19 +138,19 @@
   100%,
   64%,
   80% {
-    box-shadow: 0px 0px 5px 2px #d29bff, 0px 0px 15px 5px #d097ff,
-      0px 0px 110px 20px #f2c0ff;
+    box-shadow: 0px 0px 5px 2px var(--accentGlow), 0px 0px 15px 5px color-mix(in srgb, var(--accentGlow) 70%, var(--accentColor)),
+      0px 0px 110px 20px color-mix(in srgb, var(--accentGlow) 45%, transparent);
   }
 }
 
 @keyframes timeline2 {
   0% {
-    box-shadow: 0px 0px 5px 2px #d29bff;
+    box-shadow: 0px 0px 5px 2px var(--accentGlow);
   }
 
   100% {
-    box-shadow: 0px 0px 5px 2px #d29bff, 0px 0px 15px 5px #d097ff,
-      0px 0px 110px 20px #f2c0ff;
+    box-shadow: 0px 0px 5px 2px var(--accentGlow), 0px 0px 15px 5px color-mix(in srgb, var(--accentGlow) 70%, var(--accentColor)),
+      0px 0px 110px 20px color-mix(in srgb, var(--accentGlow) 45%, transparent);
   }
 }
 
@@ -208,7 +219,9 @@
     padding: 70px 0px;
     padding-top: 100px;
     margin-top: 0px;
-    margin-bottom: 0;
+    /* Not 0. Career drifts 4% of its height here too (about 56px at phone size), and
+       zeroing this put it straight on top of the curtain below. */
+    margin-bottom: 90px;
   }
 }
 

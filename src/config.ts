@@ -1,192 +1,173 @@
+// njeik.dev is being purchased; tebi@njeik.dev will forward to the real inbox via email forwarding.
+export const SITE_URL = "https://njeik.dev";
+
 export const config = {
     developer: {
-        name: "Redoyanul",
-        fullName: "Redoyanul Haque",
-        title: "AI & Full-Stack Developer",
-        description: "AI & Full-Stack Developer building intelligent systems and modern web applications. Passionate about machine learning, deep learning, and creating next-gen autonomous agents."
+        name: "Tebi",
+        fullName: "Tebi Njeik",
+        title: "Full-Stack Developer",
+        description: "Full-stack developer from Douala who builds web apps, business software and the occasional animation that makes people say 'ooh'."
     },
     social: {
-        github: "red1-for-hek",
-        email: "redoyanul1234@gmail.com",
-        location: "Bangladesh"
+        github: "wrench20",
+        email: "tebi@njeik.dev",
+        location: "Douala, Cameroon"
     },
     about: {
         title: "About Me",
-        description: "I am a self-taught AI & Full-Stack Developer from Bangladesh. I build intelligent systems, chatbots, and modern web applications. My expertise includes Machine Learning, Deep Learning, NLP, and Full-Stack Web Development with React, Node.js, and Python. Currently building next-gen AI Agents and JARVIS-like Personal Assistants. I have a competitive programming mindset and a deep passion for automation. Code is poetry, AI is the canvas."
+        description: "I'm Tebi. Four years of building web and mobile apps with React, Next.js, Node, Angular, React Native and Odoo. Based in Douala, working at Stoneshed Asset Management. Off the clock: music, gaming and cycling, not always in that order.",
+        facts: [
+            { label: "Location", value: "Douala, Cameroon" },
+            { label: "Experience", value: "4 yrs" },
+            { label: "Languages", value: "EN / FR" },
+            { label: "Currently", value: "At Stoneshed · open to work" }
+        ]
     },
     experiences: [
         {
-            position: "Learning Something New",
-            company: "Self-Development",
-            period: "2025 - Present",
-            location: "Bangladesh",
-            description: "Continuously exploring emerging technologies, researching advanced AI systems, and pushing the boundaries of what's possible in tech.",
-            responsibilities: [
-                "Researching cutting-edge AI and ML technologies",
-                "Experimenting with new frameworks and tools",
-                "Contributing to open-source projects",
-                "Building innovative personal projects"
-            ],
-            technologies: ["Research", "Innovation", "Open Source", "New Tech"]
+            position: "Software Engineer",
+            company: "Stoneshed Asset Management",
+            period: "2026 - Present",
+            location: "Douala, Cameroon",
+            description: "Odoo ERP rollout, end to end: onboarding, payroll, accounting and the integrations that make a lot of important numbers end up in the right place.",
+            responsibilities: [],
+            technologies: ["React", "Next.js", "Node.js", "Odoo"]
         },
         {
-            position: "AI Engineer",
-            company: "Freelance & Projects",
-            period: "2025",
-            location: "Bangladesh",
-            description: "Developing intelligent AI systems, chatbots, and machine learning solutions. Building next-gen conversational AI agents and JARVIS-like personal assistants.",
-            responsibilities: [
-                "Building AI-powered chatbots and conversational agents",
-                "Developing machine learning models with TensorFlow and PyTorch",
-                "Working with LLMs and transformer architectures",
-                "Creating autonomous AI systems and automation tools"
-            ],
-            technologies: ["Python", "TensorFlow", "PyTorch", "LLMs", "NLP", "AI Agents"]
+            position: "Lead Frontend Developer",
+            company: "Fluide Technologies",
+            period: "2025 - 2026",
+            location: "Douala, Cameroon",
+            description: "Led the frontend for eight months: turning designs into code, polishing the interface, and fixing whatever broke at the worst possible moment.",
+            responsibilities: [],
+            technologies: ["React", "Next.js", "Tailwind"]
         },
         {
-            position: "Full-Stack Developer",
-            company: "Freelance & Projects",
-            period: "2024",
-            location: "Bangladesh",
-            description: "Built complete web applications from frontend to backend. Developed responsive UIs, RESTful APIs, and database solutions for various clients and projects.",
-            responsibilities: [
-                "Developing full-stack web applications using React and Node.js",
-                "Building RESTful APIs and integrating databases",
-                "Creating responsive and interactive user interfaces",
-                "Deploying and maintaining web applications"
-            ],
-            technologies: ["React", "Node.js", "MongoDB", "Express", "Next.js", "TypeScript"]
+            position: "Frontend Developer",
+            company: "Instanvi",
+            period: "2025 - 2025",
+            location: "Douala, Cameroon",
+            description: "Three months of turning designs into screens and keeping them running, one pixel and one bug at a time.",
+            responsibilities: [],
+            technologies: ["React", "JavaScript", "Tailwind"]
         },
         {
-            position: "Python Developer",
-            company: "Self-Taught & Projects",
-            period: "2023",
-            location: "Bangladesh",
-            description: "Dove deep into Python programming, building automation scripts, bots, and mastering the fundamentals of software development and problem-solving.",
-            responsibilities: [
-                "Learning Python programming and core concepts",
-                "Building automation scripts and Discord bots",
-                "Exploring data structures and algorithms",
-                "Participating in competitive programming"
-            ],
-            technologies: ["Python", "Automation", "Scripting", "Discord.py", "Problem Solving"]
+            position: "Software Intern",
+            company: "Kings Software",
+            period: "2024 - 2025",
+            location: "Douala, Cameroon",
+            description: "Six months of internship: first real codebase, first real deadlines, and a landing page I got to ship.",
+            responsibilities: [],
+            technologies: ["Next.js", "JavaScript"]
         },
         {
-            position: "Graphic Designer",
-            company: "Freelance",
-            period: "2022",
-            location: "Bangladesh",
-            description: "Started my creative journey as a graphic designer, creating logos, banners, and visual content. This sparked my passion for technology and digital creation.",
-            responsibilities: [
-                "Designing logos and brand identity materials",
-                "Creating social media graphics and banners",
-                "Working with clients on creative projects",
-                "Learning design principles and visual aesthetics"
-            ],
-            technologies: ["Photoshop", "Illustrator", "Canva", "Figma", "Visual Design"]
-        },
-        {
-            position: "Microsoft Office",
-            company: "Begin Learning",
-            period: "2021",
-            location: "Bangladesh",
-            description: "Started my journey into the digital world by learning Microsoft Office tools. This foundational step introduced me to computers and sparked my curiosity for technology.",
-            responsibilities: [
-                "Learning Microsoft Word, Excel, and PowerPoint",
-                "Creating documents and presentations",
-                "Understanding basic computer operations",
-                "Building foundational digital skills"
-            ],
-            technologies: ["MS Word", "MS Excel", "MS PowerPoint", "Computer Basics"]
+            position: "Freelance Developer",
+            company: "Self-employed",
+            period: "2023 - 2024",
+            location: "Douala, Cameroon",
+            description: "Where it started: freelance projects, learning on the job, and discovering that \"it works on my machine\" is not a deployment strategy.",
+            responsibilities: [],
+            technologies: ["JavaScript", "React", "WordPress"]
         }
     ],
     projects: [
         {
             id: 1,
-            title: "Drishti",
-            category: "AI / LLM",
-            technologies: "Python, PyTorch, Transformers, FastAPI, React, MongoDB",
-            image: "/images/Drishti.png",
-            description: "Bangladesh's first intelligent advanced AI chatbot powered by a custom Large Language Model. Features natural language understanding, contextual conversations, and multilingual support including Bengali.",
-            link: "https://huggingface.co/red1-for-hek/drishti-ilm-x1"
+            title: "LinAudit",
+            category: "Audit / Platform",
+            technologies: "Next.js · NestJS · PostgreSQL · Microsoft Graph · English & French",
+            image: "/images/work/linaudit.webp",
+            description: "Audit teams drown in paperwork. LinAudit gives enterprise clients one place to run their audits, in English or French, without waiting for pages to load.",
+            link: "https://www.linaudit.com/"
         },
-        {
-            id: 2,
-            title: "VoteChain",
-            category: "Blockchain",
-            technologies: "Solidity, Web3.js, React, Ethereum, IPFS, MetaMask, Node.js",
-            image: "/images/VoteChain.png",
-            description: "A decentralized election system built on blockchain technology ensuring transparent, tamper-proof, and verifiable voting. Features smart contracts for vote integrity and real-time result tracking.",
-            link: "https://github.com/red1-for-hek/smart-election-by-blockchain"
-        },
-        {
-            id: 4,
-            title: "Flood Spaces 2.0",
-            category: "AI / ML",
-            technologies: "Python, TensorFlow, Pandas, React, FastAPI, GIS",
-            image: "/images/FloodSpaces.png",
-            description: "Predicts flood risks across Bangladesh up to one month in advance and sends early alerts to help people prepare.",
-            link: "https://github.com/red1-for-hek/Flood-Spaces-2.0"
-        },
-        {
-            id: 5,
-            title: "Phoenix 3.0",
-            category: "AI Assistant",
-            technologies: "Python, Speech Recognition, PyAutoGUI, OpenAI API, Tkinter",
-            image: "/images/Phoenix3.0.png",
-            description: "A JARVIS-inspired personal AI desktop assistant. Controls system functions, manages tasks, answers queries, automates workflows, and provides voice-activated computing experience.",
-            link: "https://github.com/red1-for-hek/phoenix3.0"
-        },
-        {
-            id: 6,
-            title: "RedxChess",
-            category: "AI / Game Engine",
-            technologies: "Python, C++, Neural Networks, Bitboards, UCI Protocol",
-            image: "/images/RedxChess.png",
-            description: "A high-performance chess engine rated 3640 ELO. Features advanced search algorithms, neural network evaluation, and optimized bitboard representation for lightning-fast move generation.",
-            link: "/play"
-        },
+        // The two ERP cards name the sector, not the client: both clients asked to clear
+        // their names first. Swap the titles in once they say yes. No link — the only
+        // public URL for either is an Odoo login page.
         {
             id: 7,
-            title: "Prodesk",
-            category: "E-commerce",
-            technologies: "React, Node.js, MongoDB, Express, Stripe",
-            image: "/images/Prodesk.png",
-            description: "A complete e-commerce platform with secure checkout and smooth product browsing.",
-            link: "https://github.com/red1-for-hek/prodesk"
+            title: "Investment Firm ERP",
+            category: "ERP / Odoo",
+            technologies: "Odoo 19 Enterprise · Odoo.sh · Python · custom modules · payroll · portfolio sync",
+            image: "/images/work/odoo-investment-erp.webp",
+            description: "A regulated investment firm was running on paper registers and copy-paste. I rolled out Odoo solo, end to end: client onboarding that checks the KYC paperwork, automatic sync to the portfolio system, payroll that follows Cameroonian law and posts its own accounting, and website orders flowing straight in.",
+            link: ""
         },
         {
             id: 8,
-            title: "HekTools",
-            category: "Security / Android",
-            technologies: "Kotlin, Android SDK, Firebase, Python, Encryption",
-            image: "/images/hektools.png",
-            description: "An advanced Android monitoring and security research tool. Features remote device management, activity logging, and encrypted data transmission for security testing purposes.",
+            title: "Petroleum & Retail ERP",
+            category: "ERP / Odoo · in progress",
+            technologies: "Odoo 19 Enterprise · multi-company · Python · custom modules · Docker",
+            image: "/images/work/odoo-petroleum-erp.webp",
+            description: "A fuel and convenience-store group had a freshly migrated Odoo that needed steadying, and stations run from a spreadsheet. I took over the hosting, built a station operations module (shifts, cash gaps, fuel deliveries), set up HR and payroll for two companies, and added session security.",
             link: ""
+        },
+        {
+            id: 2,
+            title: "Stoneshed Asset Management",
+            category: "Finance / Web",
+            technologies: "Next.js · Express · Odoo API · English & French · fund ticker · simulator",
+            image: "/images/work/stoneshed-am.webp",
+            description: "Investors want numbers fast, and a licensed fund manager has to look the part. This site shows fund values, news, publications and a simulator, in two languages.",
+            link: "https://www.stoneshed-am.com/"
+        },
+        {
+            id: 3,
+            title: "Alcom Petroleum",
+            category: "Energy / Web",
+            technologies: "Next.js · English & French · price lists · news",
+            image: "/images/work/alcom-petroleum.webp",
+            description: "A petroleum distributor needed a website as dependable as its fuel. Customers can now browse services, lubricants, current prices and news without calling anyone.",
+            link: "https://www.alcompetroleum.com/"
+        },
+        {
+            id: 4,
+            title: "Power Engineering SARL",
+            category: "Engineering / Web",
+            technologies: "Next.js · French · services · project showcase",
+            image: "/images/work/power-engineering.webp",
+            description: "An electrical, telecom and solar company needed to prove it's the real deal. Its three areas of expertise and past projects are now easy to find, in French.",
+            link: "https://www.powerengineering-sarl.com/"
+        },
+        {
+            id: 5,
+            title: "J3 Logistics Group",
+            category: "Logistics / Web",
+            technologies: "Next.js · Express · MongoDB · careers · partner contact",
+            image: "/images/work/j3-logistics.webp",
+            description: "A last-mile delivery company needed one front door for partners and new hires. Safety, operations, careers and partner enquiries all live here.",
+            link: "https://www.j3logisticsgroup.com/"
+        },
+        {
+            id: 6,
+            title: "SwiftPair Logistics",
+            category: "Logistics / Concept",
+            technologies: "Next.js · Express · MongoDB · shipment tracking · parcel quotes",
+            image: "/images/work/swiftpair-logistics.webp",
+            description: "A concept for a global freight company: get a quote, track a shipment and see 220+ destinations at a glance. No real client, just me having fun.",
+            link: "https://www.swiftpairlogistics.com/"
         }
     ],
     contact: {
-        email: "redoyanul1234@gmail.com",
-        github: "https://github.com/red1-for-hek",
-        linkedin: "https://linkedin.com/in/red1-for-hek",
-        twitter: "https://x.com/red_1_ul",
-        facebook: "https://www.facebook.com/redoyanulhaque.hacker.official",
-        instagram: "https://www.instagram.com/red_1_ul"
+        email: "tebi@njeik.dev",
+        github: "https://github.com/wrench20",
+        whatsapp: "https://wa.me/237675510703",
+        instagram: "https://instagram.com/njeik_20"
     },
     skills: {
         develop: {
-            title: "AI DEVELOPER",
-            description: "Building intelligent systems & AI solutions",
-            details: "Developing AI agents, chatbots, and machine learning models using Python, TensorFlow, and PyTorch. Specializing in LLMs, NLP, deep learning, and autonomous systems.",
-            tools: ["Python", "TensorFlow", "PyTorch", "OpenCV", "Scikit-learn", "LLMs", "NLP", "Deep Learning", "Chatbots", "AI Agents"]
+            title: "FULL-STACK DEVELOPER",
+            description: "Building web & mobile apps that actually feel good to use",
+            details: "4 years shipping production web and mobile apps — React, Next.js, and React Native on the frontend, with an obsession for how the thing feels when you touch it. Equally comfortable in MERN and MEAN, and I sneak GSAP/Framer motion into almost everything I ship.",
+            tools: ["React", "Next.js", "TypeScript", "Tailwind", "React Native", "Angular", "GSAP", "Framer Motion"]
         },
         design: {
-            title: "FULL-STACK",
-            description: "Modern web development & scalable applications",
-            details: "Building responsive and performant web applications using React, Next.js, Node.js, and databases. Creating seamless user experiences with modern UI/UX principles.",
-            tools: ["React", "Next.js", "Node.js", "TypeScript", "MongoDB", "PostgreSQL", "TailwindCSS", "REST APIs", "Docker", "Git"]
-        }
+            title: "ERP DEVELOPER",
+            description: "Odoo customization that won't make you want to cry",
+            details: "I build and customize Odoo modules for logistics and SME clients — fleet, dispatch, invoicing, the works — backed by Node.js/Express APIs and a MongoDB or MySQL database when the project needs one. Clean architecture, minus the boredom.",
+            tools: ["Odoo", "Python", "PostgreSQL", "MySQL", "Node.js", "Express", "MongoDB", "Git"]
+        },
+        // Shown in What I Do's numbers strip, beside Experience and Languages (which are
+        // read from about.facts so they only live in one place).
+        proof: { value: "∞", label: "playlists" }
     }
 };
-
-

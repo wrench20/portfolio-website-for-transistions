@@ -1,0 +1,143 @@
+/* Every rule is scoped under .curtain-section. Next's production build merges and
+   chunks stylesheets, so the order files load in during `next dev` is not a promise
+   it keeps — nothing here may depend on landing after another file. */
+
+.curtain-section {
+  --bar-count: 100;
+  /* One token for the section ground. The knockout only works while the slats and
+     this surface agree, so never restate the colour as a literal below. */
+  --curtain-bg: var(--backgroundColor);
+
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  height: 100svh;
+  /* Slats are wider than the screen and tilt as they leave; this keeps the fan from
+     spilling into Career above or Work below. */
+  overflow: hidden;
+  background-color: var(--curtain-bg);
+}
+
+.curtain-stage {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: grid;
+  place-items: center;
+  /* Confine the slats' blend to this section. Without it they difference against
+     whatever happens to be painted behind, which changes as the page scrolls. */
+  isolation: isolate;
+}
+
+/* Deliberately no z-index: with `position: relative` alone this is not a stacking
+   context, so the eyebrow and the headline below can sit on opposite sides of the
+   slats rather than being flattened together into one layer. */
+.curtain-copy {
+  position: relative;
+  width: min(1300px, calc(100% - 80px));
+  text-align: left;
+}
+
+/* Above the slats, so it keeps its accent blue in both states. Accent under a
+   difference blend inverts to a muddy brick red — the knockout wants one neutral
+   ink and nothing else. */
+.curtain-eyebrow {
+  position: relative;
+  z-index: 3;
+  margin: 0 0 clamp(8px, 1.5vw, 20px);
+  font-size: clamp(20px, 2.4vw, 34px);
+  color: var(--accentColor);
+  opacity: 0.85;
+}
+
+/* Below the slats, in one neutral ink. Where a slat still covers it the difference
+   blend knocks the glyphs out dark; where the slats have gone it reads light on the
+   section ground. Same type, opposite polarity — which is why it is never animated. */
+.curtain-headline {
+  position: relative;
+  z-index: 1;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  /* The curtain uncovers roughly one slat of glyph at a time, so type below this
+     flickers into view instead of being revealed. */
+  font-size: clamp(48px, 9vw, 160px);
+  line-height: 0.92;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  text-transform: uppercase;
+  color: var(--textColor);
+}
+
+.curtain-bars {
+  position: absolute;
+  /* 20% taller than the viewport, bled evenly top and bottom, so the tilt at the end
+     of the sweep cannot expose an uncovered strip at either edge. */
+  left: 0;
+  right: 0;
+  top: -10vh;
+  height: 120vh;
+  z-index: 2;
+  pointer-events: none;
+
+  /* Hidden until the effect opts in, so the section degrades to plain legible text
+     on mobile, under reduced motion, and if the script never runs. */
+  display: none;
+}
+
+.curtain-section[data-curtain="on"] .curtain-bars {
+  display: block;
+  /* On the container, not the individual slats: the slats overlap by a pixel to kill
+     sub-pixel seams, and blending each one separately would turn every overlap into
+     a dark line. As a group they composite among themselves first, then invert once
+     against the section. */
+  mix-blend-mode: difference;
+}
+
+.curtain-bar {
+  width: 100vw;
+  /* +1px so neighbours overlap rather than leaving a hairline of background between
+     them at fractional viewport heights. */
+  height: calc(120vh / var(--bar-count) + 1px);
+  /* Pivot at the left edge: as a slat slides right it tilts away from the one above
+     instead of swinging both of its ends. */
+  transform-origin: 0% 50%;
+  background-color: color-mix(
+    in srgb,
+    #dbe7f1 calc(100% - var(--i) * 0.35%),
+    #5f6b79
+  );
+}
+
+/* Tablet: same choreography, fewer and thicker slats. */
+@media only screen and (min-width: 768px) and (max-width: 1023px) {
+  .curtain-section {
+    --bar-count: 64;
+  }
+
+  .curtain-bar:nth-child(n + 65) {
+    display: none;
+  }
+}
+
+/* Phone: fewer, thicker slats and no pin (see BoxesCurtain.tsx). The section still
+   needs a screen's worth of height for the slats to have something to cover — it used
+   to collapse to `height: auto`, which is fine for plain text but leaves the curtain
+   nothing to sweep across. */
+@media only screen and (max-width: 767px) {
+  .curtain-section {
+    --bar-count: 32;
+    height: auto;
+    min-height: 100vh;
+    min-height: 100svh;
+    padding: 80px 0;
+  }
+
+  .curtain-bar:nth-child(n + 33) {
+    display: none;
+  }
+
+  .curtain-copy {
+    width: calc(100% - 30px);
+  }
+}
