@@ -147,6 +147,13 @@ export const config = {
             link: "https://www.swiftpairlogistics.com/"
         }
     ],
+    // Shown in the "now playing" pill. Static: there is no Spotify API connection.
+    nowPlaying: {
+        title: "a lot",
+        artists: "21 Savage, J. Cole",
+        cover: "/images/now-playing.webp",
+        url: "https://open.spotify.com/track/2t8yVaLvJ0RenpXUIAC52d"
+    },
     contact: {
         email: "tebi@njeik.dev",
         github: "https://github.com/wrench20",

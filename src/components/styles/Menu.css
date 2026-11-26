@@ -335,12 +335,11 @@
   outline-offset: 4px;
 }
 
-/* The button sits at the header's right edge, which the open panel always covers — at
-   every width, since the panel is 35em right-aligned on desktop and full-width on a
-   phone. Light-on-cream would be invisible, so it flips to the dark ink. */
-.menu-button[aria-expanded="true"] {
-  color: var(--backgroundColor);
-}
+/* No colour flip when open. The button keeps the header's pale ink, and the header's
+   difference blend (Navbar.css) inverts it against the panel it sits over: near-black
+   on the pale panel in dark mode, pale on the raven panel in light mode. Setting a
+   near-black colour here broke dark mode, since black under a difference blend leaves
+   the backdrop unchanged, so the button disappeared. */
 
 /* The logo and the centred email are a different case: whether the panel covers them
    depends on the viewport (at ~1024px the 35em panel reaches past the header's centre

@@ -293,39 +293,40 @@
     font-size: 12px;
   }
 
+  /* On a phone the stage stacks instead of flanking: the hand, then the full name on one
+     line beneath it. Both go back into normal flow, so the stage is as tall as they are. */
   .hero-stage {
     /* 44vw keeps the whole hand inside 375px: its real footprint is about twice the
        card width once the offsets and tilt are counted. */
     --fan-w: 44vw;
     flex: 0 0 auto;
-    height: clamp(330px, 50svh, 430px);
+    height: auto;
     min-height: 0;
-    margin-top: 18px;
+    margin-top: 32px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    /* Room for the rotated cards' lower corners, which hang below the fan box. */
+    gap: calc(var(--fan-w) * 0.22);
   }
 
-  /* Anchored from the top here, uncropped: on a phone the whole hand should be seen. */
   .hero-fan {
-    top: 19%;
-    bottom: auto;
+    position: relative;
+    inset: auto;
+    flex: 0 0 auto;
+  }
+
+  .hero-name {
+    display: flex;
+    justify-content: center;
+    gap: 0.3em;
+    font-size: clamp(28px, 9vw, 40px);
   }
 
   .hero-name-first,
   .hero-name-last {
-    font-size: clamp(26px, 8vw, 34px);
-  }
-
-  .hero-name-first {
-    top: 2%;
-    right: auto;
-    left: 0;
-  }
-
-  /* Held off the right edge: the fixed vertical RESUME tab lives there. */
-  .hero-name-last {
-    top: auto;
-    bottom: 2%;
-    left: auto;
-    right: 9%;
+    position: static;
+    font-size: inherit;
   }
 
   /* One small object on a phone, tucked beside the headline; two would crowd it. */

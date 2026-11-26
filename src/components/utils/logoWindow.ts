@@ -15,10 +15,18 @@ import { LOGO_PATH_N, LOGO_PATH_J } from "../Logo";
 /** Bounds of the two monogram paths, in logo units. */
 export const LOGO_BOUNDS = { minX: -10, minY: -1, width: 27.216, height: 19.195 };
 
-const CENTER = {
-  x: LOGO_BOUNDS.minX + LOGO_BOUNDS.width / 2,
-  y: LOGO_BOUNDS.minY + LOGO_BOUNDS.height / 2,
-};
+/**
+ * The point placed at the centre of the screen — the mark's *optical* centre, not its
+ * bounding-box centre. The monogram is top-heavy and lopsided: a wide bar along the top,
+ * two letters tapering to points, with most of the ink right of and above the box centre
+ * (3.61, 8.60). Centred on the box, the mark sat visibly right of centre and low.
+ *
+ * x is the true centre of mass of the two letter shapes (area-weighted polygon
+ * centroids: 4.58). y is halfway between the box centre and the centre of mass (6.21),
+ * the usual compromise for a downward-pointing shape — full mass-centring makes it
+ * look like it is floating high.
+ */
+const CENTER = { x: 4.58, y: 7.4 };
 
 /**
  * Where the camera dives in. This has to be *inside a stroke*, because the strokes are

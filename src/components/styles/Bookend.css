@@ -6,8 +6,33 @@
   width: 100%;
   height: 100vh;
   height: 100svh;
-  overflow: hidden;
+  /* clip, not hidden: hidden makes the section a scroll container, and a sticky child
+     then sticks to the section instead of the screen — the phone stage would never stick. */
+  overflow: clip;
   background-color: var(--backgroundColor);
+}
+
+/* The screen-sized frame the wall and the closing line are drawn in. */
+.bookend-stage {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  height: 100svh;
+  overflow: hidden;
+}
+
+/* Phone: no GSAP pin (it fights the thumb). The section is taller instead and the stage
+   sticks, which gives the zoom real scroll distance while it fills the screen. */
+@media only screen and (max-width: 767px) {
+  .bookend {
+    height: 260vh;
+    height: 260svh;
+  }
+
+  .bookend-stage {
+    position: sticky;
+    top: 0;
+  }
 }
 
 /* The closing line. It uses the same rising-light mask as the [data-sweep] headings, but

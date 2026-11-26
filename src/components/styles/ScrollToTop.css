@@ -1,10 +1,14 @@
+/* Stacked directly above the "now spinning" record and centred on it. The record's
+   geometry (--np-right, --np-bottom, --np-size) lives on :root in index.css so both
+   files read the same numbers. */
 .scroll-to-top {
+  --stt-size: 56px;
   position: fixed;
-  right: 24px;
-  bottom: 170px;
+  right: calc(var(--np-right) + (var(--np-size) - var(--stt-size)) / 2);
+  bottom: calc(var(--np-bottom) + var(--np-size) + 18px);
   z-index: 400;
-  width: 56px;
-  height: 56px;
+  width: var(--stt-size);
+  height: var(--stt-size);
   padding: 0;
   border: none;
   border-radius: 50%;

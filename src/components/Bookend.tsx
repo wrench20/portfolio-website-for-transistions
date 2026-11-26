@@ -27,25 +27,28 @@ const HERO_Y = 0.36;
  * On tablet and desktop the section then pins for a little over a screen so the pull-back
  * can finish.
  * Not pinned on a phone, where pinning takes the scroll away from the thumb that is
- * driving it: there the same timeline is scrubbed by the section rising into view, and
- * finishes exactly as it comes to rest at the bottom of the page.
+ * driving it: there the section is taller and its stage is CSS-sticky, so the same
+ * timeline plays while the stage holds the screen, finishing at the bottom of the page.
  */
 const Bookend = () => {
   const sectionRef = useRef<HTMLElement>(null);
+  const stageRef = useRef<HTMLDivElement>(null);
   const holeRef = useRef<SVGGElement>(null);
   const fillRef = useRef<SVGGElement>(null);
   const messageRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const section = sectionRef.current;
+    const stage = stageRef.current;
     const hole = holeRef.current;
     const fill = fillRef.current;
     const message = messageRef.current;
-    if (!section || !hole || !fill || !message) return;
+    if (!section || !stage || !hole || !fill || !message) return;
 
-    /** z = 1 is the window filling the stage, z = 0 the finished logo. */
+    /** z = 1 is the window filling the stage, z = 0 the finished logo. Measured on the
+     *  stage, not the section: on a phone the section is several screens tall. */
     const place = (z: number) => {
-      const m = toMatrix(diveTransform(z, section.clientWidth, section.clientHeight, HERO_Y));
+      const m = toMatrix(diveTransform(z, stage.clientWidth, stage.clientHeight, HERO_Y));
       hole.setAttribute("transform", m);
       fill.setAttribute("transform", m);
     };
@@ -103,9 +106,12 @@ const Bookend = () => {
           defaults: { ease: "power1.inOut" },
           scrollTrigger: {
             trigger: section,
-            start: "top bottom",
-            // Phone: done as it settles at the foot of the page. Desktop: one screen to
-            // reach the top, plus the pin's 110%.
+            // Phone: the section is 260svh with a sticky stage (Bookend.css). It plays
+            // from the moment the stage fills the screen to the foot of the page, so all
+            // 160svh of it is a full-screen zoom. (Starting as the section rose into view,
+            // the zoom used to finish while it was still half off the screen.)
+            // Desktop: one screen to reach the top, plus the pin's 110%.
+            start: phone ? "top top" : "top bottom",
             end: phone ? "bottom bottom" : "+=210%",
             scrub: phone ? true : 1.5,
             invalidateOnRefresh: true,
@@ -141,6 +147,10 @@ const Bookend = () => {
 
   return (
     <section className="bookend" ref={sectionRef} aria-labelledby="bookend-title">
+      {/* The stage is the screen-sized frame everything is drawn in. On desktop it is
+          the whole section (which GSAP pins); on a phone the section is taller and the
+          stage sticks to the screen while the extra height scrolls past it. */}
+      <div className="bookend-stage" ref={stageRef}>
       <LogoWall ref={holeRef} fillRef={fillRef} />
 
       <div className="bookend-message" ref={messageRef}>
@@ -153,6 +163,7 @@ const Bookend = () => {
         <a className="bookend-cta" href={`mailto:${config.contact.email}`} data-cursor="disable">
           say hello <MdArrowOutward aria-hidden="true" />
         </a>
+      </div>
       </div>
     </section>
   );
